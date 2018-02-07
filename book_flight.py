@@ -57,10 +57,9 @@ def main():
     # Validates and formats the date
     try:
         date = validate(args.date).strftime("%d/%m/%Y")
-    except ValueError as err:
-        #print(err)
+    except ValueError:
         print("0")
-        exit(0)
+        exit(1)
 
     # Date
     request += "&dateFrom=" + date + "&dateTo=" + date
@@ -78,7 +77,7 @@ def main():
     if not args.is_cheapest:
         request += "&sort=duration"
 
-    # Sends GET request 
+    # Sends GET request
     conn = http.client.HTTPSConnection("api.skypicker.com")
     conn.request('GET', request)
     response = conn.getresponse()
@@ -87,9 +86,8 @@ def main():
 
 
     if not data_arr['data']:
-        #print("Flight does not exist")
         print("0")
-        exit(0)
+        exit(1)
 
     # Used currency
     payload = '{"currency": "EUR", '
@@ -103,7 +101,7 @@ def main():
     # Passengers identity
     payload += '"passengers":[ { "lastName":"Janko", "firstName":"Mrkvicka", '
     payload += '"email":"janko.mrkvicka@test.com", "title":"Mr", "documentID":"EA123123", '
-    payload += '"birthday":"1990-01-01" } ] }' 
+    payload += '"birthday":"1990-01-01" } ] }'
 
     # Content of the request is in json
     headers = {"Content-type": "application/json"}
@@ -114,11 +112,18 @@ def main():
     response = conn.getresponse()
     data = response.read()
 
-    if json.loads(data)['status'] == "confirmed":
+    json_data = json.loads(data)
+
+    if 'bags' in json_data.keys():
+        print("0")
+        exit(1)
+
+    if json_data['status'] == "confirmed":
         # Reservation number PNR
-        print(json.loads(data)['pnr'])
+        print(json_data['pnr'])
     else:
-        exit(0)
+        print("0")
+        exit(1)
 
 
 if __name__ == '__main__':

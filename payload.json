@@ -1,0 +1,15 @@
+{
+	"currency": "EUR",
+	"booking_token": "b/n57BoTjASi2ByXlxiZP3oDvlzrQBO2CyfmSlMWf797iyUPg9g6AUmQTRMN0LUSDPYNlVZfTotf1SOBWI99DfjconB50y+lqMJeP9aLD0b0NrV89oN60FzGWw/+OEZdWCv3JTre+6k+FVgeSak+Q1jmBzcyzAbr3a1uNVpwXe+TbR3eIF+aW4JWuGFpL/yXkFSwGaqtsbCdFMhIyHROYK/yU1FoHL3kWNAXIg/dVh2fyTRaJeWJZx8aH+umSUFF4fCe7GOFLA90EM53G9dw5Q4QzF/nLDuMn+/ljjSF2qmQja3skJ1u6261LbalVJSJJHfVmGsN9X5kDA3CnT5XyrmDvVhttbJ06W7OsZvhaO5C6dSrfSyugjxRyEji6HxE0bfLhxPv4Nafa9SEpNXZQ7H0Pf+iAs8e2dRje2GsbUzySb3eXF9+jtxRvp+VsZd1MOoIm59MY6Y+yjhH9k3SjvGYxeRij1/V+m24uDsvOfyaoEAfZnywALS0sMDYLmTTw2g/91KnPzKmXaITvXNhiAhndn19NEs9LuSs/mlfTbVW0QJJs+8qPbWWK2/34UpvExppO0fO+iyZw8LfdywYn9tUI/fS00RytuT8orfgOP8xq14vpC8w2LeZ30x86Hk5b5a0YJMVqSL0q41pc0cBA9kpZVwlD/dtxZmwzsLU9yFP/iE+y/RRB3RJticbFhP7369dqsmDCQJTOxbWG1LMQB5/8w87M+xmuVb8ATS7QTg=", 
+	"bags":"2", 
+	"passengers":[
+		{
+			"lastName":"Janko",
+			"firstName":"Mrkvicka",
+			"email":"janko.mrkvicka@test.com",
+			"title":"Mr",
+			"documentID":"EA123123",
+			"birthday":"1990-01-01"
+		}
+	]
+}

@@ -15,7 +15,7 @@ CORRECT=${#test_batch[@]}
 
 # False
 test_batch=("${test_batch[@]}" "./book_flight.py --date 2018-04-13 --from CTT --to MIA")
-test_batch=("${test_batch[@]}" "./book_flight.py --date 2018-04-33 --from CTT --to MIA")
+test_batch=("${test_batch[@]}" "./book_flight.py --date 2018-04-33 --from CPH --to MIA")
 test_batch=("${test_batch[@]}" "./book_flight.py --date 2018-04-13 --from NRT --to SYD --cheapest --bags -5")
 test_batch=("${test_batch[@]}" "./book_flight.py --date 2018-04-13 --from LHR --to DXB --return -1")
 
@@ -29,17 +29,17 @@ for (( i = 0; i < ${#test_batch[@]}; i++ )); do
     if [ -n "$RESULT" ]; then
         printf "$RESULT ---- \t"
         if (("$i" < "$CORRECT")); then
-            if [ ${#RESULT} == 7 ]; then
+            if [ ${#RESULT} == 7 ]; then   # Correct result
                 number_of_correct=$((number_of_correct + 1))
                 echo "OK"
-            else
+            else                           # Incorrect result
                 echo "ERROR"
             fi
         else
-            if [ "$RESULT" == "0" ]; then
+            if [ "$RESULT" == "0" ]; then  # Correct result
                 number_of_correct=$((number_of_correct + 1))
                 echo "OK"
-            else
+            else                           # Incorrect result
                 echo "ERROR"
             fi
         fi

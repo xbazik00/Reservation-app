@@ -3,6 +3,8 @@
 '''
     Goal of this application is to find the shortest or the cheapest flight. This flight can
     be booked afterwards.
+    :Author: Martin Bazik
+    :Date: 14.2.2018
 '''
 
 import http.client
@@ -13,7 +15,10 @@ import datetime
 def validate(date_text):
     """
         Validates the date
+        :param date_text: string value of the date
+        :return: datetime object
     """
+
     try:
         return datetime.datetime.strptime(date_text, '%Y-%m-%d')
     except ValueError:
@@ -21,20 +26,22 @@ def validate(date_text):
 
 def parse_args():
     """
-        Parses parameters
+        Parses parameters from command line
+        :return: arguments
     """
+
     parser = argparse.ArgumentParser(description="""Input the correct arguments
         to find the flight you want to book.""")
     parser.add_argument('--date', required=True)
     parser.add_argument('--from', dest='fly_from', required=True)
     parser.add_argument('--to', required=True)
 
-    # Argument group representing return parameter
+    # Argument group representing one-way or return
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--one-way', dest='return_days', action='store_const', const=None)
     group.add_argument('--return', dest='return_days', type=int)
 
-    # Argument group representing cheapest route option
+    # Argument group representing cheapest or fastest route option
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--cheapest', dest='is_cheapest', action='store_true', default=True)
     group.add_argument('--fastest', dest='is_cheapest', action='store_false')
@@ -49,6 +56,7 @@ def main():
     """
         Main function
     """
+
     args = parse_args()
 
     # Reservation request
@@ -81,13 +89,23 @@ def main():
     conn = http.client.HTTPSConnection("api.skypicker.com")
     conn.request('GET', request)
     response = conn.getresponse()
+
+    # Error response
+    if response.status != 200:
+        print("0")
+        exit(1)
+
     data = response.read()
     data_arr = json.loads(data)
 
-
+    # No data received
     if not data_arr['data']:
         print("0")
         exit(1)
+
+    # Debug, to check the fastest and cheapest route
+    #for i in data_arr['data']:
+    #    print("Duration: %d; Price: %d" % (i["duration"]["total"], i["price"]))
 
     # Used currency
     payload = '{"currency": "EUR", '
@@ -110,10 +128,16 @@ def main():
     conn = http.client.HTTPConnection("128.199.48.38:8080")
     conn.request('POST', '/booking', payload, headers)
     response = conn.getresponse()
-    data = response.read()
 
+    # Error response
+    if response.status != 200:
+        print("0")
+        exit(1)
+
+    data = response.read()
     json_data = json.loads(data)
 
+    # Invalid amount of luggage
     if 'bags' in json_data.keys():
         print("0")
         exit(1)
